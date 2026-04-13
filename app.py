@@ -11,11 +11,12 @@ st.set_page_config(page_title="Disease Prediction", layout="wide")
 if 'history' not in st.session_state:
     st.session_state.history = []
 
-# --- 3. CUSTOM STYLE
+# --- 3. CUSTOM STYLE (100% ORIGINAL DESIGN RESTORED) ---
 def add_custom_style():
     st.markdown(
         f"""
         <style>
+        /* --- BACKGROUND & OVERLAY --- */
         .stApp {{
             background-image: url("https://images.unsplash.com/photo-1674702727317-d29b2788dc4a?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bWVkaWNhbCUyMHdhbGxwYXBlcnxlbnwwfHwwfHx8MA%3D%3D");
             background-attachment: fixed; background-size: cover;
@@ -24,57 +25,87 @@ def add_custom_style():
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(0, 0, 0, 0.75); backdrop-filter: blur(10px); z-index: -1;
         }}
+
+        /* --- SIDEBAR --- */
         [data-testid="stSidebar"] {{
             background-color: rgba(255, 255, 255, 0.05) !important;
             backdrop-filter: blur(20px) !important; border-right: 1px solid rgba(0, 212, 255, 0.2) !important;
         }}
-        
-        /* Sidebar Footer & Info Box Font Size Fix */
-        
-        /* to decrease the font size of text in st.info */
-        [data-testid="stSidebar"] .stAlert p {{
-            font-size: 13px !important;
-            font-weight: normal !important;
-            line-height: 1.2 !important;
-            color: #FFFFFF !important;
+        .sidebar-title {{
+            color: #00D4FF !important; font-size: 30px !important; font-weight: 800 !important;
+            text-align: center; text-transform: uppercase;
         }}
 
-        /* to decrease the font size of st.caption */
-        [data-testid="stSidebar"] [data-testid="stCaptionContainer"] {{
-            font-size: 11px !important;
-            color: rgba(255, 255, 255, 0.6) !important;
-            margin-top: 5px !important;
-            text-align: center;
+        /* --- TYPOGRAPHY (SHADOW REMOVED) --- */
+        h1, h2, h3, p, label {{ 
+            color: #FFFFFF !important; 
+            font-size: 17px !important; 
+            font-weight: bold !important; 
+            text-shadow: none !important; /* <--- Shadow yahan se hatayi gayi hai */
+            margin-bottom: 5px !important; 
         }}
-        .sidebar-title {{
-            color: #00D4FF !important; font-size: 40px !important; font-weight: 800 !important;
-            text-align: center; text-transform: uppercase; text-shadow: 0px 0px 15px rgba(0, 212, 255, 0.4);
+        .stApp h1 {{ 
+            font-size: 38px !important; 
+            color: #00D4FF !important; 
+            text-shadow: none !important; 
         }}
-        h1, h2, h3, p, label {{ color: #FFFFFF !important; font-size: 22px !important; font-weight: bold !important; text-shadow: 2px 2px 5px rgba(0,0,0,1); }}
-        .stApp h1 {{ font-size: 50px !important; color: #00D4FF !important; }}
-        
+
+        /* --- INPUTS & BUTTONS --- */
         .stTextInput > div > div > input, .stNumberInput > div > div > input {{
             background-color: rgba(255, 255, 255, 0.95) !important; color: #000000 !important;
-            border-radius: 12px !important; font-size: 20px !important; font-weight: bold !important; padding: 12px !important;
+            border-radius: 8px !important; font-size: 16px !important; font-weight: bold !important; padding: 8px !important;
         }}
-        
         div.stButton > button {{
-            background-color: red !important; color: #000000 !important;
-            font-size: 20px !important; font-weight: bold !important; border-radius: 10px !important;
-            border: 2px solid #FFFFFF !important; padding: 10px 25px !important;
+            background-color: red !important; color: #FFFFFF !important;
+            font-size: 17px !important; font-weight: bold !important; border-radius: 8px !important;
+            border: 2px solid #FFFFFF !important; padding: 6px 20px !important;
         }}
-        
-        .result-box-positive {{ background-color: #FF3131 !important; color: #FFFFFF !important; padding: 30px; border-radius: 15px; border: 5px solid #990000; text-align: center; font-size: 38px; font-weight: 1000; box-shadow: 0px 10px 30px rgba(0,0,0,0.5); margin-top: 40px; width: 100%; display: block; }}
-        .result-box-negative {{ background-color: #28a745 !important; color: #FFFFFF !important; padding: 30px; border-radius: 15px; border: 5px solid #004d00; text-align: center; font-size: 38px; font-weight: 1000; box-shadow: 0px 10px 30px rgba(0,0,0,0.5); margin-top: 40px; width: 100%; display: block; }}
-        
-        .stTooltipIcon {{ filter: brightness(0) invert(1) !important; background-color: rgba(255, 255, 255, 0.3) !important; border-radius: 50% !important; padding: 3px !important; }}
-        div[data-testid="stTooltipContent"] {{ background-color: #FF0000 !important; color: white !important; font-size: 8px !important; font-weight: bold !important; }}
-        
-        .stExpander {{ background-color: transparent !important; margin-top: 25px !important; }}
-        .stExpander details summary {{ background-color: #FFFFFF !important; border: 3px solid #00D4FF !important; border-radius: 12px !important; padding: 12px !important; }}
-        .stExpander details summary p {{ color: #000000 !important; text-shadow: none !important; font-size: 20px !important; }}
-        .stExpander div[data-testid="stExpanderDetails"] {{ background-color: #FFFFFF !important; border-radius: 0 0 12px 12px !important; padding: 20px !important; }}
-        .stExpander div[data-testid="stExpanderDetails"] p, td, th {{ color: #000000 !important; text-shadow: none !important; font-size: 16px !important; }}
+
+        /* --- TOOLTIP ICON VISIBILITY FIX --- */
+        .stTooltipIcon {{
+            filter: brightness(0) invert(1) !important; /* Isse icon white ho jayega */
+            background-color: rgba(255, 255, 255, 0.2) !important; /* Halki si background plate */
+            border-radius: 50% !important;
+            padding: 2px !important;
+            }}
+
+        /* Tooltip ke andar ka text (jo hover karne pe dikhta hai) */
+        div[data-testid="stTooltipContent"] {{
+            background-color: #FF0000 !important; /* Tooltip box color */
+            color: white !important;
+            font-size: 12px !important;
+            font-weight: bold !important;
+            text-shadow: none !important;
+            }}
+
+        /* --- RESULT BOX --- */
+        .result-box-positive {{ background-color: #FF3131 !important; color: #FFFFFF !important; padding: 15px; border-radius: 12px; text-align: center; font-size: 26px; font-weight: bold; width: 100%; display: block; margin-top: 20px; }}
+        .result-box-negative {{ background-color: #28a745 !important; color: #FFFFFF !important; padding: 15px; border-radius: 12px; text-align: center; font-size: 26px; font-weight: bold; width: 100%; display: block; margin-top: 20px; }}
+
+        /* --- EXPANDER (CLEAN LOOK) --- */
+        .stExpander {{ background-color: transparent !important; margin-top: 15px !important; }}
+        .stExpander details summary {{ 
+            background-color: #FFFFFF !important; 
+            border: 2px solid #00D4FF !important; 
+            border-radius: 10px !important; 
+            padding: 8px !important; 
+            box-shadow: none !important;
+        }}
+        .stExpander details summary p {{ 
+            color: #000000 !important; 
+            font-size: 17px !important; 
+            text-shadow: none !important; /* Expander text ki shadow bhi hatayi */
+        }}
+        .stExpander div[data-testid="stExpanderDetails"] {{ 
+            background-color: #FFFFFF !important; 
+            border-radius: 0 0 10px 10px !important; 
+            padding: 15px !important; 
+        }}
+        .stExpander div[data-testid="stExpanderDetails"] p, td, th {{ 
+            color: #000000 !important; 
+            font-size: 14px !important; 
+            text-shadow: none !important;
+        }}
         </style>
         """, unsafe_allow_html=True
     )
@@ -114,7 +145,8 @@ with st.sidebar:
             if st.button("Clear All History"): st.session_state.history = []; st.rerun()
 
     st.info("💡 **Tip:** Ensure you enter lab values accurately from clinical reports for best results.")
-    st.caption("Developed by Sudhir •     MSc Final Year Project 2026")
+    st.caption("Developed by Sudhir")
+    st.caption("MSc Final Year Project 2026")
 
 # --- 6. DIABETES PAGE ---
 if selected == 'Diabetes Prediction':
@@ -223,7 +255,7 @@ elif selected == 'Heart Disease Prediction':
                             help="Flow of blood to heart muscles during stress test.")
 
     c1, c2, _ = st.columns([1, 1, 4])
-    if c1.button('Heart Test Result'):
+    if c1.button('Test Result'):
         try:
             s_v, e_v = (1 if sex == 'Male' else 0), (1 if exang == 'Yes' else 0)
             cp_m = {'Severe/No Specific Pain': 0, 'Moderate/Atypical Pain': 1, 'Non-Heart Related Pain': 2, 'Low/Typical Pain': 3}
@@ -254,6 +286,16 @@ elif selected == 'Heart Disease Prediction':
 elif selected == 'Kidney Disease Prediction':
     st.title('Kidney Disease Prediction using ML')
     st.info("Fill the details below. Hover over the '?' icons for helpful hints.")
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        bp = st.number_input('1. Blood Pressure', min_value=40, step=5, value=80,
+                             help="Diastolic BP. Normal is usually 80.")
+    with col2:
+        al = st.selectbox('2. Albumin', [0, 1, 2, 3, 4, 5],
+                          help="Protein in urine. '0' is healthy.")
+    with col3:
+        rbc = st.selectbox('3. Red Blood Cells', ['normal', 'abnormal'],
+                           help="RBC in urine test.")
 
     # Grid 1: Primary Lab Values
     col1, col2, col3 = st.columns(3)
@@ -316,7 +358,7 @@ elif selected == 'Kidney Disease Prediction':
                            help="Chronic fatigue or low hemoglobin. Often caused by the kidney's inability to support red blood cell production.")
 
     c1, c2, _ = st.columns([1, 1, 4])
-    if c1.button('Kidney Test Result'):
+    if c1.button('Test Result'):
         try:
             m = {'abnormal': 0, 'normal': 1, 'present': 1, 'notpresent': 0, 'yes': 1, 'no': 0, 'good': 0, 'poor': 1}
             u_in = [bp, al, m[rbc], m[pc], m[pcc], bgr, bu, sc, pcv, rc, m[htn], m[dm], m[appet], m[pe], m[ane]]
