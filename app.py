@@ -11,7 +11,7 @@ st.set_page_config(page_title="Disease Prediction", layout="wide")
 if 'history' not in st.session_state:
     st.session_state.history = []
 
-# --- 3. CUSTOM STYLE (100% ORIGINAL DESIGN RESTORED) ---
+# --- 3. CUSTOM STYLE
 def add_custom_style():
     st.markdown(
         f"""
@@ -31,7 +31,7 @@ def add_custom_style():
         
         /* Sidebar Footer & Info Box Font Size Fix */
         
-        /* st.info ke andar ka text chota karne ke liye */
+        /* to decrease the font size of text in st.info */
         [data-testid="stSidebar"] .stAlert p {{
             font-size: 13px !important;
             font-weight: normal !important;
@@ -39,7 +39,7 @@ def add_custom_style():
             color: #FFFFFF !important;
         }}
 
-        /* st.caption ka font size chota karne ke liye */
+        /* to decrease the font size of st.caption */
         [data-testid="stSidebar"] [data-testid="stCaptionContainer"] {{
             font-size: 11px !important;
             color: rgba(255, 255, 255, 0.6) !important;
