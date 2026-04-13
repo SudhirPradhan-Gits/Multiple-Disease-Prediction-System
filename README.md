@@ -3,7 +3,7 @@
 A Machine Learning powered web application that predicts multiple diseases with high accuracy. This project is developed as part of my **MSc Computer Science Final Year Project (2026)**.
 
 ## 🚀 Live Demo
-[Yahan deployment ke baad Streamlit ka link daal dena]
+https://multiple-disease-prediction-system-cs07.streamlit.app/
 
 ## 🛠️ Tech Stack
 - **Language:** Python
