@@ -254,16 +254,6 @@ elif selected == 'Heart Disease Prediction':
 elif selected == 'Kidney Disease Prediction':
     st.title('Kidney Disease Prediction using ML')
     st.info("Fill the details below. Hover over the '?' icons for helpful hints.")
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        bp = st.number_input('1. Blood Pressure', min_value=40, step=5, value=80,
-                             help="Diastolic BP. Normal is usually 80.")
-    with col2:
-        al = st.selectbox('2. Albumin', [0, 1, 2, 3, 4, 5],
-                          help="Protein in urine. '0' is healthy.")
-    with col3:
-        rbc = st.selectbox('3. Red Blood Cells', ['normal', 'abnormal'],
-                           help="RBC in urine test.")
 
     # Grid 1: Primary Lab Values
     col1, col2, col3 = st.columns(3)
